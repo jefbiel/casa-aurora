@@ -500,11 +500,24 @@ main {
 
 .footer-socials,
 .footer-contacts {
-  margin-top: 0.75rem;
-  display: flex;
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
   justify-content: center;
-  gap: 0.7rem;
-  flex-wrap: wrap;
+}
+
+.footer-socials {
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-contacts {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .footer-socials a,
@@ -513,32 +526,38 @@ main {
   text-decoration: none;
   background: rgba(58, 37, 30, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.45rem 0.8rem;
-  border-radius: 999px;
+  padding: 0.72rem 0.95rem;
+  border-radius: 18px;
   font-size: 0.85rem;
-  transition: background 220ms ease;
+  transition: background 220ms ease, transform 220ms ease, border-color 220ms ease;
 }
 
 .social-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.42rem;
+  justify-content: center;
+  min-height: 50px;
+  gap: 0.5rem;
+  text-align: center;
 }
 
 .social-icon {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   fill: currentColor;
   flex: 0 0 auto;
 }
 
 .social-label {
   line-height: 1;
+  white-space: nowrap;
 }
 
 .footer-socials a:hover,
 .footer-contacts a:hover {
   background: rgba(179, 82, 52, 0.95);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
 }
 
 .reveal {
@@ -702,13 +721,34 @@ main {
 
   .footer-socials,
   .footer-contacts {
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr;
+    max-width: none;
   }
 
   .footer-socials a,
   .footer-contacts a {
     width: 100%;
+  }
+
+  .footer-socials {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .social-link {
+    flex-direction: column;
+    gap: 0.38rem;
+    min-height: 72px;
+    padding: 0.8rem 0.55rem;
+  }
+
+  .social-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .social-label {
+    white-space: normal;
+    font-size: 0.78rem;
   }
 
   .location-info,
@@ -725,6 +765,12 @@ main {
     width: 100%;
     text-align: center;
     font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .footer-socials {
+    grid-template-columns: 1fr;
   }
 }
 
