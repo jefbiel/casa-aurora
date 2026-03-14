@@ -9,6 +9,13 @@ const navShell = document.querySelector(".nav-shell");
 const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
 const sections = document.querySelectorAll("section[id], header[id]");
 
+function setActiveNav(targetId) {
+  navAnchors.forEach((anchor) => {
+    const isCurrent = anchor.getAttribute("href") === `#${targetId}`;
+    anchor.classList.toggle("active", isCurrent);
+  });
+}
+
 // Fecha o menu do mobile quando precisar.
 function closeMenu() {
   navLinks.classList.remove("show");
@@ -97,18 +104,22 @@ if ("IntersectionObserver" in window) {
 
 // Aqui eu marco no menu qual seção está visível no momento.
 if ("IntersectionObserver" in window && navAnchors.length > 0) {
+  setActiveNav("home");
+
   const sectionObserver = new IntersectionObserver(
     (entries) => {
+      if (window.scrollY <= 40) {
+        setActiveNav("home");
+        return;
+      }
+
       entries.forEach((entry) => {
         if (!entry.isIntersecting) {
           return;
         }
 
         const currentId = entry.target.getAttribute("id");
-        navAnchors.forEach((anchor) => {
-          const isCurrent = anchor.getAttribute("href") === `#${currentId}`;
-          anchor.classList.toggle("active", isCurrent);
-        });
+        setActiveNav(currentId);
       });
     },
     { threshold: 0.45, rootMargin: "-18% 0px -38% 0px" }
